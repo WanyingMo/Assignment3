@@ -5,9 +5,9 @@ mubi2=var(bi)+mean(bi)*mean(bi)
 pbi=sqrt((mean(bi)-mubi2)/(100-100*100))
 print(pbi)
 #Geometric
-#I don't know why R's mean of geometric distribution is not 1/p
 geo<-rgeom(1000,0.5)
-muge=var(geo)+4*mean(geo)*mean(geo)
+mean=mean(geo)+1
+muge=var(geo)+mean*mean
 pge=(-1+sqrt(1+8*muge))/(2*muge)
 print(pge)
 #Poisson
@@ -41,13 +41,12 @@ beta=(1-m)*alpha/m
 print(alpha)
 print(beta)
 #Multinomial
-#do I need to calculate the moments estimator of n? It hasn't been calculated in binomial
 a<-c(1,2,3)
 p<-c(0.1,0.3,0.6)
 mul<-sample(a,1000,replace=TRUE,p)
 nmul=as.numeric(table(mul))
 pmul=c(nmul[1]/1000,nmul[2]/1000,nmul[3]/1000)
-#¦Ì
+#mu
 print(pmul)
 #Multivariate Normal
 library(MASS)
@@ -62,7 +61,7 @@ vamn<-as.matrix(unlist(muln[i,1:3]))-mumn
 vamn1<-t(as.matrix(unlist(muln[i,1:3]))-mumn)
 vamn2<-vamn2+vamn%*%vamn1
 }
-#¦Ì
+#mu
 print(mumn)
-#¡Æ
+#sum
 print(vamn2/1000)
