@@ -24,7 +24,7 @@ print(b)
 #Normal
 no<-rnorm(1000, mean = 0, sd = 1)
 muno=mean(no)
-sig2=var(no)
+sig2=sqrt(var(no))
 print(muno)
 print(sig2)
 #Exponential
