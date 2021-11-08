@@ -1,7 +1,7 @@
-moment_estimator<-function(data,distribution){
+moment_estimator<-function(data,n,distribution){
 if (distribution=="Binomial"){
   mubi2=var(data)+mean(data)*mean(data)
-  pbi=sqrt((mean(data)-mubi2)/(100-100*100))
+  pbi=sqrt((mean(data)-mubi2)/(n-n*n))
   return(pbi)
 }
   
@@ -46,29 +46,29 @@ else if(distribution=="Beta"){
   
 else if(distribution=="Multinormial"){ 
   nmul=as.numeric(table(data))
-  pmul=c(nmul[1]/1000,nmul[2]/1000,nmul[3]/1000)
+  pmul=c(nmul[1]/n,nmul[2]/n,nmul[3]/n)
   return(pmul)
 }
 
 else if(distribution=="Mul_Normal"){
   library(MASS)
-  mumn<-c(sum(data[1:1000,1])/1000,sum(data[1:1000,2])/1000,sum(data[1:1000,3])/1000)
+  mumn<-c(sum(data[1:n,1])/n,sum(data[1:n,2])/n,sum(data[1:n,3])/n)
   mumn<-as.matrix(unlist(mumn))
   vamn2<-matrix(c(0,0,0,0,0,0,0,0,0),nrow=3,ncol=3)
-  for (i in 1:1000){
+  for (i in 1:n){
     vamn<-as.matrix(unlist(muln[i,1:3]))-mumn
     vamn1<-t(as.matrix(unlist(muln[i,1:3]))-mumn)
     vamn2<-vamn2+vamn%*%vamn1
   }
-  return(list(mumn,vamn2/1000))
+  return(list(mumn,vamn2/n))
 }
 }
-  moment_estimator(rbinom(1000,100,0.5),"Binomial")
-  moment_estimator(rgeom(1000,0.5),"Geometric")
-  moment_estimator(rpois(1000,0.5),"Poisson")  
-  moment_estimator(runif(1000,0,1),"Uniform")  
-  moment_estimator(rnorm(1000,0,2),"Normal")  
-  moment_estimator(rexp(100,1),"Exponential")  
-  moment_estimator(rbeta(1000,0.5,1),"Beta")  
-  moment_estimator(sample(c(1,2,3),1000,replace=TRUE,c(0.1,0.3,0.6)),"Multinormial")
-  moment_estimator(mvrnorm(1000,c(1,2,3),matrix(c(1,0,0,0,1,0,0,0,1),nrow=3,ncol=3)),"Mul_Normal")  
+  moment_estimator(rbinom(1000,100,0.5),n=100,"Binomial")
+  moment_estimator(rgeom(1000,0.5),n=0,"Geometric")
+  moment_estimator(rpois(1000,0.5),n=0,"Poisson")  
+  moment_estimator(runif(1000,0,1),n=0,"Uniform")  
+  moment_estimator(rnorm(1000,0,2),n=0,"Normal")  
+  moment_estimator(rexp(100,1),n=0,"Exponential")  
+  moment_estimator(rbeta(1000,0.5,1),n=0,"Beta")  
+  moment_estimator(sample(c(1,2,3),1000,replace=TRUE,c(0.1,0.3,0.6)),n=1000,"Multinormial")
+  moment_estimator(mvrnorm(1000,c(1,2,3),matrix(c(1,0,0,0,1,0,0,0,1),nrow=3,ncol=3)),n=1000,"Mul_Normal")  
