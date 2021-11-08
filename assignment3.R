@@ -1,5 +1,4 @@
 moment_estimator<-function(data,distribution){
-#Binomial
 if (distribution=="Binomial"){
   mubi2=var(data)+mean(data)*mean(data)
   pbi=sqrt((mean(data)-mubi2)/(100-100*100))
@@ -31,7 +30,6 @@ else if(distribution=="Normal"){
   return(c(muno,sig2))
 }
 
-  
 else if(distribution=="Exponential"){
   muex=var(data)+mean(data)*mean(data)
   rate=sqrt(muex/2)
