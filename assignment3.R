@@ -35,7 +35,6 @@ else if(distribution=="Normal"){
   sig2=sqrt(var(no))
   return(c(muno,sig2))
 }
-
   
 else if(distribution=="Exponential"){
   exp<-rexp(data[1],data[2])
