@@ -56,7 +56,7 @@ else if(distribution=="Mul_Normal"){
   mumn<-as.matrix(unlist(mumn))
   vamn2<-matrix(c(0,0,0,0,0,0,0,0,0),nrow=3,ncol=3)
   for (i in 1:n){
-    vamn<-as.matrix(unlist(muln[i,1:3]))-mumn
+    vamn<-as.matrix(unlist(data[i,1:3]))-mumn
     vamn1<-t(as.matrix(unlist(muln[i,1:3]))-mumn)
     vamn2<-vamn2+vamn%*%vamn1
   }
